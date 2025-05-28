@@ -17,23 +17,13 @@ RUN apt-get update && \
       websockify && \
     rm -rf /var/lib/apt/lists/*
 
-    mkdir -p config/vnc
-
-    cat << 'EOF' > config/vnc/xstartup
-    #!/bin/sh 
-    startxfce4 &
-    EOF
-    chmod +x config/vnc/xstartup
-
-
-RUN ls /root/.vnc
-
-RUN ls -l ./config/vnc/xstartup
-
+# Создаём папку, если её нет
 RUN mkdir -p /root/.vnc
 
+# Копируем скрипт запуска среды
 COPY config/vnc/xstartup /root/.vnc/xstartup
 
+# Устанавливаем права на скрипт
 RUN chmod +x /root/.vnc/xstartup && chmod 700 /root/.vnc
 
 EXPOSE 5901 6901

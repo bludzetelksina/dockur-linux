@@ -1,14 +1,12 @@
-version: "3.8"
-
 services:
   vnc:
     build: .
     container_name: linux_vnc
     ports:
-      - "5901:5901"      # Порт для VNC
-      - "6901:6901"      # Порт для noVNC веб-интерфейса (если используется)
+      - "5901:5901"
+      - "6901:6901"
     volumes:
       - ./config/vnc:/root/.vnc
     environment:
-      - VNC_PASSWORD=secretpassword  # Пароль для VNC
+      - VNC_PASSWORD=secretpassword
     restart: unless-stopped

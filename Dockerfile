@@ -1,14 +1,20 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y \
-    xfce4 \
-    xfce4-goodies \
-    tightvncserver \
-    novnc \
-    websockify \
-    && rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Moscow   # <-- Укажи нужный часовой пояс
 
-# Копируем настройки VNC
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata && \
+    apt-get install -y \
+      xfce4 \
+      xfce4-goodies \
+      tightvncserver \
+      novnc \
+      websockify && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY config/vnc/xstartup /root/.vnc/xstartup
 
 EXPOSE 5901 6901

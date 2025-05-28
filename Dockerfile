@@ -16,7 +16,6 @@ RUN apt-get update && \
       novnc \
       websockify && \
     rm -rf /var/lib/apt/lists/*
-    ls -l ./config/vnc/xstartup
 
     mkdir -p config/vnc
 
@@ -26,6 +25,12 @@ RUN apt-get update && \
     EOF
     chmod +x config/vnc/xstartup
 
+
+RUN ls /root/.vnc
+
+RUN ls -l ./config/vnc/xstartup
+
+RUN mkdir -p /root/.vnc
 
 COPY config/vnc/xstartup /root/.vnc/xstartup
 

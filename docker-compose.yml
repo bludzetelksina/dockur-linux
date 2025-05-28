@@ -9,4 +9,5 @@ services:
       - ./config/vnc:/root/.vnc
     environment:
       - VNC_PASSWORD=secretpassword
+      - USER=root           # добавляем USER
     restart: unless-stopped

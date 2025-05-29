@@ -4,4 +4,4 @@
 VERSION="$1"
 DOWNLOAD="$2"
 
-curl "$VERSION" -o "$DOWNLOAD"
+curl -L "$VERSION" -o "$DOWNLOAD"

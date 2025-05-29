@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  vm:
+    build: .
+    ports:
+      - "6080:6080"   # для noVNC
+    volumes:
+      - ./disk:/disk
+      - ./config:/config
+    command: /config/vm-start.sh

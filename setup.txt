@@ -1,0 +1,8 @@
+# 1. Создание диска (размер 10G)
+bash config/create-disk.sh 10G disk/vm-disk.img
+
+# 2. Загрузка ISO (например, Ubuntu mini.iso)
+bash config/download-file.sh https://cdimage.ubuntu.com/netboot/mini.iso disk/ubuntu.iso
+
+# 3. Запуск контейнера
+docker-compose up --build

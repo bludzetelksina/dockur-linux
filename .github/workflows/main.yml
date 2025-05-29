@@ -24,12 +24,6 @@ jobs:
           sudo apt update
           sudo apt install -y qemu-utils curl wget xvfb fluxbox git
 
-      - name: Install Docker
-        run: |
-          sudo apt install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
-
       - name: Install Docker Compose (через curl)
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

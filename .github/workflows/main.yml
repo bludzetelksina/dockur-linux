@@ -1,0 +1,34 @@
+name: Build and Run VM Container
+
+on:
+  push:
+    paths:
+      - '**.yml'
+      - 'Dockerfile'
+      - 'config/**'
+      - 'disk/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install qemu-utils
+        run: |
+          sudo apt update
+          sudo apt install -y qemu-utils
+
+      - name: Create disk (256G)
+        run: |
+          bash config/create-disk.sh 256G disk/vm-disk.img
+
+      - name: Download ISO
+        run: |
+          bash config/download-file.sh https://archive.org/download/ubuntu-22.04-desktop-amd64_202206/ubuntu-22.04-desktop-amd64.iso disk/ubuntu.iso
+
+      - name: Build and run container
+        run: |
+          docker-compose up --build -d

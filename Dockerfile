@@ -1,6 +1,17 @@
 FROM ubuntu:22.04
 
+# Устанавливаем переменные окружения, чтобы избежать интерактива
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+# Настройка временной зоны
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+
+# Установка зависимостей
 RUN apt update && apt install -y \
+    tzdata \
     qemu-kvm \
     wget \
     curl \
@@ -14,7 +25,7 @@ RUN apt update && apt install -y \
     websockify \
     && rm -rf /var/lib/apt/lists/*
 
-# Копируем noVNC (можно клонировать вручную)
+# Копируем noVNC
 WORKDIR /opt
 RUN git clone https://github.com/novnc/noVNC.git
 

@@ -19,10 +19,25 @@ jobs:
       - name: List project files
         run: ls -alR
 
-      - name: Install qemu-utils
+      - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y qemu-utils
+          sudo apt install -y \
+            qemu-utils \
+            curl \
+            wget \
+            xvfb \
+            fluxbox \
+            git \
+            docker.io \
+            docker-compose
+
+      - name: Enable Docker daemon
+        run: |
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo usermod -aG docker $USER
+          newgrp docker || true
 
       - name: Make scripts executable
         run: |

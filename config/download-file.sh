@@ -4,4 +4,4 @@
 VERSION="$1"
 DOWNLOAD="$2"
 
-curl -L "$VERSION" -o "$DOWNLOAD"
+wget "$VERSION" -O "$DOWNLOAD"

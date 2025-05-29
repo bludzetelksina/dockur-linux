@@ -1,19 +1,25 @@
 FROM ubuntu:22.04
 
 RUN apt update && apt install -y \
-    qemu-kvm wget curl git novnc websockify \
+    qemu-kvm \
+    wget \
+    curl \
+    sudo \
+    net-tools \
+    git \
+    x11vnc \
+    xvfb \
+    fluxbox \
+    novnc \
+    websockify \
     && rm -rf /var/lib/apt/lists/*
 
-COPY qemu /qemu/
-COPY utils /utils/
-COPY entrypoint.sh /entrypoint.sh
+# Копируем noVNC (можно клонировать вручную)
+WORKDIR /opt
+RUN git clone https://github.com/novnc/noVNC.git
 
-RUN chmod +x /entrypoint.sh /utils/*.sh /qemu/*.sh
-
-WORKDIR /qemu
-
-RUN git clone https://github.com/novnc/noVNC.git /novnc
+# Копируем скрипты
+COPY config/ /config/
+RUN chmod +x /config/*.sh
 
 EXPOSE 6080
-
-ENTRYPOINT ["/entrypoint.sh"]

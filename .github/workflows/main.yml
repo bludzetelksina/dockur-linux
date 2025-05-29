@@ -16,10 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List project files
+        run: ls -alR
+
       - name: Install qemu-utils
         run: |
           sudo apt update
           sudo apt install -y qemu-utils
+
+      - name: Make scripts executable
+        run: |
+          chmod +x config/*.sh
 
       - name: Create disk (256G)
         run: |

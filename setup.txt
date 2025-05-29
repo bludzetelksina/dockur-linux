@@ -2,7 +2,7 @@
 bash config/create-disk.sh 10G disk/vm-disk.img
 
 # 2. Загрузка ISO (например, Ubuntu mini.iso)
-bash config/download-file.sh https://cdimage.ubuntu.com/netboot/mini.iso disk/ubuntu.iso
+bash config/download-file.sh https://archive.org/download/ubuntu-22.04-desktop-amd64_202206/ubuntu-22.04-desktop-amd64.iso disk/ubuntu.iso
 
 # 3. Запуск контейнера
 docker-compose up --build

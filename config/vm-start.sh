@@ -1,26 +1,14 @@
 #!/bin/bash
-# Запускаем noVNC и VM
+set -e
 
-lsmod | grep kvm
-ls -l /dev/kvm
+# Define the path to the disk image
+DISK_IMAGE="/disk/vm-disk.img"
 
-# Прокси VNC через WebSocket для браузера
-/websockify --web=/opt/noVNC 6080 localhost:5901 &
-
-# Запуск графической среды
-Xvfb :1 -screen 0 1024x768x16 &
-sleep 2
-DISPLAY=:1 fluxbox &
-
-# Запуск виртуальной машины
+# Start the virtual machine using QEMU
 qemu-system-x86_64 \
-  -m 2048 \
-  -hda /disk/vm-disk.img \
-  -vnc :1 \
-  -enable-kvm
-
-# Вывод URL
-echo "Открой в браузере: http://localhost:6080/vnc.html"
-
-# Ждём завершения фоновых процессов (опционально)
-wait
+    -hda "$DISK_IMAGE" \
+    -m 2048 \
+    -smp 2 \
+    -net nic -net user,hostfwd=tcp::2222-:22 \
+    -vnc :0 \
+    -enable-kvm

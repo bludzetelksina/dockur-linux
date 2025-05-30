@@ -1,0 +1,39 @@
+name: Build and Run VM
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-run-vm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set execute permissions on scripts
+      run: |
+        chmod +x config/create-disk.sh
+        chmod +x config/download-file.sh
+        chmod +x config/vm-start.sh
+
+    - name: Create disk image
+      run: ./config/create-disk.sh
+
+    - name: Download necessary files
+      run: ./config/download-file.sh
+
+    - name: Build Docker image
+      run: docker build -t your-vm-image .
+
+    - name: Start Docker Compose
+      run: docker-compose up -d
+
+    - name: Run VM startup script
+      run: ./config/vm-start.sh
+
+    - name: List Docker containers
+      run: docker ps -a

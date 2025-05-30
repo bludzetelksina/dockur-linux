@@ -1,7 +1,9 @@
 #!/bin/bash
-# Использование: ./download-file.sh https://example.com/file.iso /disk/file.iso
+set -e
 
-VERSION="$1"
-DOWNLOAD="$2"
+# Define the URL and destination path
+URL="https://archive.org/download/ubuntu10.04lts/Ubuntu%2010.04%20LTS.iso"
+DESTINATION="disk/ubuntu.iso"
 
-wget "$VERSION" -O "$DOWNLOAD"
+# Download the file using wget
+wget -O "$DESTINATION" "$URL"

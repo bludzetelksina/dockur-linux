@@ -6,7 +6,7 @@ sudo apt install qemu-utils
 bash config/create-disk.sh 10G disk/vm-disk.img
 
 # 3. Загрузка ISO (например, Ubuntu mini.iso)
-bash config/download-file.sh https://archive.org/download/ubuntu-22.04-desktop-amd64_202206/ubuntu-22.04-desktop-amd64.iso disk/ubuntu.iso
+bash config/download-file.sh https://archive.org/download/ubuntu10.04lts/Ubuntu 10.04 LTS.iso disk/ubuntu.iso
 
 # 4. Запуск контейнера
 docker-compose up --build

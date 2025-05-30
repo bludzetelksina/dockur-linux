@@ -38,7 +38,6 @@ RUN apt update && apt install -y python3 python3-pip && \
     pip3 install websockify
 
 # Копируем скрипты
-COPY config/ /config/
-RUN chmod +x /config/*.sh
+RUN chmod +x /config/vm-start.sh
 
 EXPOSE 6080

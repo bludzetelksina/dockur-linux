@@ -13,7 +13,7 @@ services:
       - vm-network
 
   novnc:
-    image: novnc/noVNC:latest
+    image: theasp/novnc
     ports:
       - "8080:80"
     volumes:

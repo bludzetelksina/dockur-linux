@@ -42,13 +42,8 @@ jobs:
         run: |
           bash config/download-file.sh https://archive.org/download/ubuntu-22.04-desktop-amd64_202206/ubuntu-22.04-desktop-amd64.iso disk/ubuntu.iso
 
-      - name: Content Check
-        run: |
-          ls -lh disk/
-          ls -lh config/
-
       - name: Build and run container
         run: |
           docker-compose config
-          docker-compose build
-          docker-compose up --abort-on-container-exit --exit-code-from vm
+          ls -lh disk/
+          docker-compose up --build --abort-on-container-exit --exit-code-from vm

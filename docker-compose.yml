@@ -1,12 +1,28 @@
 version: '3.8'
+
 services:
   vm:
-    build: .
-    ports:
-      - "6080:6080"   # для noVNC
-    devices:
-      - /dev/kvm
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./disk:/disk
       - ./config:/config
     command: /config/vm-start.sh
+    networks:
+      - vm-network
+
+  novnc:
+    image: novnc/noVNC:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./novnc:/usr/share/novnc
+    networks:
+      - vm-network
+    depends_on:
+      - vm
+
+networks:
+  vm-network:
+    driver: bridge

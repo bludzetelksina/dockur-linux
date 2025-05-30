@@ -1,15 +1,9 @@
 FROM ubuntu:22.04
 
-# Устанавливаем переменные окружения, чтобы избежать интерактива
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
-# Настройка временной зоны
-RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
-
-
-# Установка зависимостей
+# Установка зависимостей (включая tzdata)
 RUN apt update && apt install -y \
     tzdata \
     qemu-kvm \
@@ -24,6 +18,10 @@ RUN apt update && apt install -y \
     novnc \
     websockify \
     && rm -rf /var/lib/apt/lists/*
+
+# Настройка временной зоны — теперь tzdata уже установлена
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # Копируем noVNC
 WORKDIR /opt

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -x
 
 # Define the path and size for the disk image
 DISK_IMAGE="/disk/vm-disk.img"

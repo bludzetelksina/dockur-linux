@@ -1,6 +1,9 @@
 #!/bin/bash
 # Запускаем noVNC и VM
 
+lsmod | grep kvm
+ls -l /dev/kvm
+
 # Прокси VNC через WebSocket для браузера
 /websockify --web=/opt/noVNC 6080 localhost:5901 &
 

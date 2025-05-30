@@ -5,15 +5,21 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update package list and install necessary packages
-RUN apt-get update && apt-get install -y \
-    qemu-kvm \
-    libvirt-daemon-system \
-    libvirt-clients \
-    bridge-utils \
-    virt-manager \
-    wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y qemu-kvm
+
+RUN apt-get update && apt-get install -y libvirt-daemon-system
+
+RUN apt-get update && apt-get install -y libvirt-clients
+
+RUN apt-get update && apt-get install -y bridge-utils
+
+RUN apt-get update && apt-get install -y virt-manager
+
+RUN apt-get update && apt-get install -y wget
+
+RUN apt-get update && apt-get clean
+
+RUN apt-get update && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app

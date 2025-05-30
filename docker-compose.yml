@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - "6080:6080"   # для noVNC
+    devices:
+      - /dev/kvm
     volumes:
       - ./disk:/disk
       - ./config:/config

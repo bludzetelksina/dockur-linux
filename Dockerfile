@@ -39,5 +39,6 @@ RUN apt update && apt install -y python3 python3-pip && \
 
 # Копируем скрипты
 RUN chmod +x /config/vm-start.sh
+RUN ./config/vm-start.sh
 
 EXPOSE 6080
